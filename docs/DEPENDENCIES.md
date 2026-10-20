@@ -7,7 +7,7 @@
 | [wechatauto-replica](https://github.com/fanyuantaier/wechatauto-replica) | 1.2.7.0 | 微信本地数据库、消息与成员读取 | 安装包声明 Apache-2.0，见仓库根目录 WECHATAUTO_LICENSE.txt |
 | [requests](https://requests.readthedocs.io/) | 2.34.2 | API、网页和 Hook HTTP 请求 | Apache-2.0，许可随安装包提供 |
 
-本次已逐字节核对运行环境的 `wechatauto/db.py` 与 1.2.7.0 wheel 一致，没有需要另行分发的私有数据库补丁。仓库不附虚拟环境、wheel 或这些依赖的源码。
+使用 pip 安装对应版本即可，仓库不附虚拟环境、wheel 或这些依赖的源码。
 
 ## 传递依赖
 
@@ -21,7 +21,7 @@ SQLite、FTS5、JSON、线程、unittest 等使用 Python 标准库。若换用�
 
 来源：[Derpyu520/qq-bridge](https://github.com/Derpyu520/qq-bridge)，参考版本 `a56164e70a0521a7829138a42eee76066fde2b8b`。
 
-`system_prompt.txt` 基于原版小鲸鱼角色卡；`wechat_simulation.txt` 参考 qq-chat / qq-chat-v2 的行为原则，针对本项目 API、微信和 SQLite 能力重新适配。导出时替换私人群名、成员名字和身份规则。保留完整 `QQ_BRIDGE_LICENSE.txt`，其中包含 MIT 原文和上游第三方说明。参考不代表本项目依赖 DSH、SnowLuma 或 QQ OneBot。
+`system_prompt.txt` 基于原版小鲸鱼角色卡；`wechat_simulation.txt` 参考 qq-chat / qq-chat-v2 的行为原则，针对本项目 API、微信和 SQLite 能力适配。保留完整 `QQ_BRIDGE_LICENSE.txt`，其中包含 MIT 原文和上游第三方说明。参考不代表本项目依赖 DSH、SnowLuma 或 QQ OneBot。
 
 ## Hook、微信和 API
 
@@ -31,4 +31,4 @@ Hook 来自 [aixed/WeChat-Hook](https://github.com/aixed/WeChat-Hook)，使用�
 
 ## 表情图片
 
-`stickers/*_opt.png` 为本次项目制作过程中生成的 12 张本地示例图，配有关键词映射与语义描述；图片不是软件源码，不以 MIT 许可授予第三方商标或角色相关权利。网络下载的表情没有打包，原作者的许可需单独核对。
+`stickers/*_opt.png` 为 12 张 AI 生成的本地示例图，配有关键词映射与语义描述；图片不是软件源码，不以 MIT 许可授予第三方商标或角色相关权利。网络下载的表情不随仓库分发，原作者的许可需单独核对。

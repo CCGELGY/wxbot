@@ -1,0 +1,47 @@
+# Local environment and secrets
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+config.json
+config.local.json
+keys.json
+*credentials*.json
+*token*.json
+
+# Conversations, member information, database keys and caches
+history.json
+group_memory.json
+member_memory.json
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+logs/
+wechatauto_logs/
+backups/
+outputs/
+stickers/network/
+*.log
+*.bak
+*.tmp
+
+# Third-party binaries and dependency distributions
+hook/
+wheels/
+*.dll
+*.exe
+*.whl
+
+# Python and editors
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store

@@ -1,0 +1,2 @@
+wechatauto-replica==1.2.7.0
+requests==2.34.2

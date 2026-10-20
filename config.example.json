@@ -1,0 +1,140 @@
+{
+  "api": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-flash",
+    "api_key_env": "DEEPSEEK_API_KEY",
+    "timeout": 120,
+    "max_tokens": 300,
+    "temperature": 0.8,
+    "retries": 2,
+    "web_enabled": true
+  },
+  "bot": {
+    "system_prompt_file": "system_prompt.txt",
+    "history_messages": 40,
+    "context_messages": 40,
+    "reply_max_chars": 300,
+    "poll_interval": 1.0,
+    "send_interval": 0.8,
+    "multi_delay": [
+      2,
+      5
+    ],
+    "verify_send": true,
+    "bot_aliases": [
+      "小鲸鱼",
+      "小助手",
+      "DeepSeek"
+    ],
+    "name_aliases": [
+      "小鲸鱼",
+      "DeepSeek"
+    ],
+    "name_cooldown": 3,
+    "speaker_triggers": [],
+    "speaker_trigger_ids": [],
+    "speaker_cooldown": 8,
+    "banter_name": "阿甲",
+    "banter_exclude": "示例同名成员",
+    "banter_cooldown": 5,
+    "keyword_replies": {},
+    "roast_targets": [],
+    "roast_target_ids": [],
+    "roast_exclude": [],
+    "roast_exclude_ids": [],
+    "stickers": {
+      "enabled": true,
+      "dir": "stickers",
+      "mapping": "mapping.json",
+      "cooldown": 10,
+      "max_per_hour": 60,
+      "semantic": true,
+      "network_enabled": true,
+      "image_proxy_url": "",
+      "plan_rounds": [
+        2,
+        3
+      ]
+    },
+    "proactive": {
+      "enabled": true,
+      "active_hours": [
+        9,
+        23
+      ],
+      "question_wait_sec": 60,
+      "min_interval_sec": 180,
+      "max_per_hour": 4,
+      "max_per_day": 20,
+      "idle_min": 15,
+      "idle_max_per_hour": 1,
+      "idle_max_per_day": 6,
+      "followup_sec": 90,
+      "followup_turns": 3,
+      "question_keywords": [
+        "有没有",
+        "谁",
+        "怎么",
+        "为什么",
+        "哪",
+        "多少",
+        "求推荐",
+        "推荐",
+        "怎么办",
+        "在吗",
+        "有人吗",
+        "来个人",
+        "求助",
+        "帮个忙",
+        "求解",
+        "吗"
+      ],
+      "casual_probability": 0.12,
+      "casual_wait_sec": 1.5
+    },
+    "memory": {
+      "enabled": true,
+      "every_messages": 30,
+      "recent_messages": 60,
+      "max_chars": 500,
+      "file": "group_memory.json",
+      "structured": true,
+      "database": "knowledge.sqlite3",
+      "alias_confirmations": 3,
+      "trusted_writer_ids": []
+    },
+    "cooldown": 2,
+    "send_error": false,
+    "max_concurrent": 2,
+    "transport": {
+      "backend": "hook",
+      "base_url": "http://[::1]:30001",
+      "timeout": 12,
+      "min_interval": 0.4,
+      "verify_timeout": 8
+    },
+    "conversation": {
+      "window_sec": 600,
+      "pre_sleep_sec": 300,
+      "unfinished_max_sec": 60,
+      "continuation_quiet_sec": 10,
+      "initial_coalesce_sec": 0.15,
+      "burst_quiet_sec": 1.2
+    },
+    "banter_target_ids": [],
+    "banter_target_names": [],
+    "banter_names": [],
+    "fresh_start": true,
+    "simulation_prompt_file": "wechat_simulation.txt"
+  },
+  "groups": [
+    {
+      "name": "REPLACE_WITH_GROUP_ID@chatroom",
+      "aliases": [
+        "小鲸鱼",
+        "小助手"
+      ],
+      "trigger": "mention_or_name"
+    }
+  ]
+}

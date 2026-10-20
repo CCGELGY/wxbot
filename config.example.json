@@ -111,7 +111,8 @@
       "base_url": "http://[::1]:30001",
       "timeout": 12,
       "min_interval": 0.4,
-      "verify_timeout": 8
+      "verify_timeout": 8,
+      "account_username": ""
     },
     "conversation": {
       "window_sec": 600,
@@ -125,7 +126,14 @@
     "banter_target_names": [],
     "banter_names": [],
     "fresh_start": true,
-    "simulation_prompt_file": "wechat_simulation.txt"
+    "simulation_prompt_file": "wechat_simulation.txt",
+    "vision": {
+      "enabled": true,
+      "context_sec": 120,
+      "max_images": 2,
+      "max_source_bytes": 33554432,
+      "max_pixels": 24000000
+    }
   },
   "groups": [
     {

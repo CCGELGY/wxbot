@@ -53,6 +53,8 @@ class Inbox:
             else:
                 row={'g':dict(group),'messages':[dict(message)],'first':now,'waiting':unfinished,
                      'due':now+float(self.config.get('unfinished_max_sec',60) if unfinished else self.config.get('initial_coalesce_sec',0.15))}
+                if message.get('_await_image') and not unfinished:
+                    row['due'] = now + float(self.config.get('image_wait_sec', 1.5))
                 self.pending[key]=row
             self.lock.notify_all()
 
@@ -72,6 +74,8 @@ class Inbox:
                 if self.closed:return
             messages=row['messages'];combined=dict(messages[-1])
             combined['content']='\n'.join(m['content'] for m in messages)
+            combined['_image_refs'] = [r for m in messages for r in m.get('_image_refs', [])][-8:]
+            combined['_image_only'] = all(m.get('_image_only', False) for m in messages)
             # A direct wake in the first fragment still applies to its continuation.
             quotes=[m.get('_quote_target','none') for m in messages]
             combined['_quote_target']='other' if 'other' in quotes else ('self' if 'self' in quotes else 'none')

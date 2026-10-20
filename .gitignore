@@ -7,6 +7,8 @@ venv/
 config.json
 config.local.json
 keys.json
+image_keys.json
+**/image_keys.json
 *credentials*.json
 *token*.json
 
@@ -25,6 +27,10 @@ wechatauto_logs/
 backups/
 outputs/
 stickers/network/
+incoming_media/
+vision-cache/
+runtime/
+media/
 *.log
 *.bak
 *.tmp

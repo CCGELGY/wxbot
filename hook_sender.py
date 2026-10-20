@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import ipaddress
 import logging
+import re
 import threading
 import time
 from dataclasses import dataclass
@@ -12,6 +13,34 @@ from urllib.parse import urlsplit
 import requests
 
 log = logging.getLogger("api-bridge")
+
+
+def open_hook_database(config):
+    """Pin database reads to the Hook account, not an inactive account's file mtime."""
+    from wechatauto import WeChatDB
+    from wechatauto.db import auto_detect_db_dir
+    hook = HookSender(config)
+    try:
+        hook.health()
+        response = hook.session.post(hook.base_url + '/GetSelfProfile', json={}, timeout=(2, 4))
+        response.raise_for_status()
+        username = str(response.json().get('wxid') or '')
+    finally:
+        hook.session.close()
+    if not re.fullmatch(r'wxid_[A-Za-z0-9_]+', username):
+        raise RuntimeError('Hook account identity unavailable; log in to WeChat first')
+    base = auto_detect_db_dir()
+    if not base:
+        raise RuntimeError('WeChat database directory unavailable')
+    candidates = [p for p in Path(base).iterdir() if p.is_dir()
+                  and (p / 'db_storage').is_dir()
+                  and re.sub(r'_\w{4}$', '', p.name) == username]
+    if len(candidates) != 1:
+        raise RuntimeError('Hook account does not uniquely match a local database')
+    db = WeChatDB(db_dir=str(base), account=candidates[0].name)
+    if db.get_self_info().get('username') != username:
+        raise RuntimeError('Hook/database account mismatch; stopped before listening')
+    return db
 
 
 @dataclass
@@ -49,7 +78,17 @@ class HookSender:
         # The bridge independently requires a readable, logged-in account DB.
         if not int(data.get("hWeixin", 0)):
             raise RuntimeError("Hook has not initialized Weixin.dll")
+        self._require_account()
         return data
+
+    def _require_account(self):
+        expected = str(self.config.get('account_username') or '')
+        if not expected:
+            return
+        response = self.session.post(self.base_url + '/GetSelfProfile', json={}, timeout=(2, 4))
+        response.raise_for_status()
+        if response.json().get('wxid') != expected:
+            raise RuntimeError('Hook account differs from the configured account; sending refused')
 
     @staticmethod
     def _identity(row):
@@ -80,6 +119,7 @@ class HookSender:
         with self.lock:
             started = time.monotonic()
             try:
+                self._require_account()
                 before = self._baseline(who) if verify else None
                 remaining = self.min_interval - (time.monotonic() - self.last_send)
                 if remaining > 0:
